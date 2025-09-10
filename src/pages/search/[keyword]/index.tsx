@@ -24,6 +24,9 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import { useState } from "react";
 
+/**
+ * Represents a furniture item from the search results
+ */
 type Item = {
   name: string;
   price: string;
@@ -33,20 +36,68 @@ type Item = {
   scrapedAt: string;
   id: number;
 };
+
+/**
+ * Props for the search results page
+ */
+type SearchPageProps = {
+  items: Item[];
+  error?: string;
+};
+/**
+ * Search results page component
+ */
 export default function Page(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
-  const { items } = props;
-  const stores = Array.from(
-    new Set(items.map((item) => item.storeName))
-  ).sort();
+  const { items, error } = props;
 
+  // Initialize state hooks first (React Hooks rules)
+  const stores = items ? Array.from(
+    new Set(items.map((item) => item.storeName))
+  ).sort() : [];
+  
   const [checkedStores, setCheckedStores] = useState(stores);
   const [openStores, setOpenStores] = useState(false);
   const [openSort, setOpenSort] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLButtonElement>(null);
   const [sort, setSort] = useState<"asc" | "desc">("asc");
 
+  // Handle error state
+  if (error) {
+    return (
+      <Layout>
+        <Stack
+          alignItems="center"
+          justifyContent="center"
+          spacing={2}
+          sx={{ padding: 4 }}
+        >
+          <Typography variant="h6" color="error">
+            {error}
+          </Typography>
+        </Stack>
+      </Layout>
+    );
+  }
+
+  // Handle empty results
+  if (!items || items.length === 0) {
+    return (
+      <Layout>
+        <Stack
+          alignItems="center"
+          justifyContent="center"
+          spacing={2}
+          sx={{ padding: 4 }}
+        >
+          <Typography variant="h6">
+            No furniture items found. Try a different search term.
+          </Typography>
+        </Stack>
+      </Layout>
+    );
+  }
   const handleCheckBoxChange = (store: string) => {
     if (checkedStores.includes(store)) {
       setCheckedStores(checkedStores.filter((s) => s !== store));
@@ -297,13 +348,27 @@ export default function Page(
   );
 }
 
-export const getServerSideProps: GetServerSideProps<{
-  items: Item[];
-}> = async (context) => {
+export const getServerSideProps: GetServerSideProps<SearchPageProps> = async (context) => {
   const { keyword } = context.params!;
 
-  const items = await fetch(
-    `${process.env.SCANNER_API}/scan?search=${keyword}`
-  ).then((res) => res.json());
-  return { props: { items } };
+  try {
+    const response = await fetch(
+      `${process.env.SCANNER_API}/scan?search=${encodeURIComponent(keyword as string)}`
+    );
+    
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+    
+    const items = await response.json();
+    return { props: { items: items || [] } };
+  } catch (error) {
+    console.error('Error fetching furniture data:', error);
+    return {
+      props: {
+        items: [],
+        error: 'Failed to load furniture data. Please try again later.'
+      }
+    };
+  }
 };
