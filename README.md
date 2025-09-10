@@ -2,7 +2,7 @@
 
 A modern web application for searching and comparing furniture prices across multiple online retailers. Built with Next.js and Material-UI, this frontend application provides a clean, intuitive interface for finding the best furniture deals.
 
-![Furniture Hunt Screenshot](https://via.placeholder.com/800x400/FDF4E3/3C3431?text=Furniture+Hunt+Dashboard)
+![Furniture Hunt Screenshot](screenshots/home-page.png)
 
 ## Features
 
@@ -12,20 +12,6 @@ A modern web application for searching and comparing furniture prices across mul
 📱 **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices  
 ⚡ **Fast Loading** - Optimized performance with Next.js and server-side rendering  
 🎨 **Modern UI** - Clean, intuitive interface built with Material-UI components
-
-## Screenshots
-
-### Home Page
-*Search interface with clean, minimalist design*
-![Home Page](https://via.placeholder.com/600x300/FDF4E3/3C3431?text=Home+Page+-+Search+Interface)
-
-### Search Results
-*Grid view of furniture items with filtering options*
-![Search Results](https://via.placeholder.com/600x300/FDF4E3/3C3431?text=Search+Results+-+Product+Grid)
-
-### Product Cards
-*Detailed product cards with pricing and store information*
-![Product Cards](https://via.placeholder.com/600x300/FDF4E3/3C3431?text=Product+Cards+-+Detailed+View)
 
 ## Getting Started
 
@@ -38,12 +24,14 @@ A modern web application for searching and comparing furniture prices across mul
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-username/furniture-scan-front.git
    cd furniture-scan-front
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -51,16 +39,20 @@ A modern web application for searching and comparing furniture prices across mul
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    ```
+
    Edit `.env.local` and configure your API endpoints:
+
    ```bash
    SCANNER_API_PORT=3000
    SCANNER_API=http://localhost:3000
    ```
 
 4. **Start the development server**
+
    ```bash
    npm run dev
    # or
@@ -73,27 +65,33 @@ A modern web application for searching and comparing furniture prices across mul
 ## Running the Application
 
 ### Development Mode
+
 ```bash
 npm run dev
 ```
+
 Starts the development server on port 8080 with hot reloading enabled.
 
 ### Production Build
+
 ```bash
 npm run build
 npm run start
 ```
+
 Builds the application for production and starts the production server.
 
 ### Testing the Application
 
 1. **Manual Testing**
+
    - Visit [http://localhost:8080](http://localhost:8080)
    - Try searching for furniture items (e.g., "chair", "table", "sofa")
    - Test the filtering functionality
    - Verify responsive design on different screen sizes
 
 2. **Verify Features**
+
    - ✅ Search functionality works
    - ✅ Results display properly
    - ✅ Filtering by store works
@@ -146,25 +144,26 @@ furniture-scan-front/
 
 ## Available Scripts
 
-| Script | Description |
-|--------|--------------|
-| `npm run dev` | Start development server on port 8080 |
-| `npm run build` | Build the application for production |
-| `npm run start` | Start the production server |
-| `npm run lint` | Run ESLint to check code quality |
+| Script          | Description                           |
+| --------------- | ------------------------------------- |
+| `npm run dev`   | Start development server on port 8080 |
+| `npm run build` | Build the application for production  |
+| `npm run start` | Start the production server           |
+| `npm run lint`  | Run ESLint to check code quality      |
 
 ## Configuration
 
 ### Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|----------|
-| `SCANNER_API_PORT` | Backend API port | 3000 |
-| `SCANNER_API` | Backend API URL | http://localhost:3000 |
+| Variable           | Description      | Default               |
+| ------------------ | ---------------- | --------------------- |
+| `SCANNER_API_PORT` | Backend API port | 3000                  |
+| `SCANNER_API`      | Backend API URL  | http://localhost:3000 |
 
 ### Supported Stores
 
 The application fetches data from multiple furniture retailers:
+
 - IKEA
 - Costco
 - Ashley Furniture
@@ -196,17 +195,20 @@ This frontend requires a backend API server that provides furniture search funct
 ### Common Issues
 
 **Port already in use**
+
 ```bash
 # Kill process using port 8080
 lsof -ti:8080 | xargs kill -9
 ```
 
 **API connection issues**
+
 - Verify the backend server is running
 - Check your `.env.local` configuration
 - Ensure firewall settings allow the connection
 
 **Build errors**
+
 ```bash
 # Clear Next.js cache
 rm -rf .next
