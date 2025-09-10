@@ -1,6 +1,10 @@
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
+/**
+ * Loading component with animated progress indicator
+ * Used during page transitions and data fetching
+ */
 export default function CircularStatic() {
   const [progress, setProgress] = useState(10);
 

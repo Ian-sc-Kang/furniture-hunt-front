@@ -2,11 +2,25 @@
 import SearchOutlined from "@mui/icons-material/SearchOutlined";
 import { InputAdornment, TextField } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, ChangeEvent, KeyboardEvent } from "react";
 
+/**
+ * Search component that allows users to search for furniture items
+ */
 export default function Search() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
   const router = useRouter();
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && search.trim()) {
+      const sanitizedSearch = search.trim().toLowerCase();
+      router.push(`/search/${encodeURIComponent(sanitizedSearch)}`);
+    }
+  };
   return (
     <TextField
       sx={{
@@ -25,12 +39,8 @@ export default function Search() {
         ),
         className: "rounded-full",
       }}
-      onChange={(e) => setSearch(e.target.value)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          router.push(`/search/${search.toLocaleLowerCase()}`);
-        }
-      }}
+      onChange={handleInputChange}
+      onKeyDown={handleKeyPress}
     />
   );
 }
