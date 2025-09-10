@@ -1,7 +1,19 @@
 {
-  "name": "furniture-scan-front",
-  "version": "0.1.0",
+  "name": "furniture-hunt",
+  "version": "1.0.0",
   "private": true,
+  "description": "A modern web application for searching and comparing furniture prices across multiple online retailers",
+  "keywords": ["furniture", "price-comparison", "nextjs", "typescript", "material-ui", "web-scraping"],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/furniture-scan-front.git"
+  },
+  "homepage": "https://github.com/your-username/furniture-scan-front#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/furniture-scan-front/issues"
+  },
   "scripts": {
     "dev": "next dev -p 8080",
     "build": "next build",
